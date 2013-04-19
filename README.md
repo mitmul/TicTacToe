@@ -9,4 +9,6 @@ TicTacToe
 - rsdl(OSX)
 
 ### Usage(OSX)
-> $ rsdl drawer.rb
+```
+$ rsdl tictactoe.rb
+```
