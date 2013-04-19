@@ -63,7 +63,8 @@ def check(state)
   fin
 end
 
-def reach?(state_base_3)
+# プレイヤーがリーチかどうか
+def player_reach(state_base_3)
   reach = false
   pos = [[0, 1, 2],
          [3, 4, 5],
@@ -87,30 +88,51 @@ def reach?(state_base_3)
   reach
 end
 
-def action_train(policy, step, state_base_3)
+def agent_reach(state_base_3)
+  reach = false
+  pos = [[0, 1, 2],
+         [3, 4, 5],
+         [6, 7, 8],
+         [0, 3, 6],
+         [1, 4, 7],
+         [2, 5, 8],
+         [0, 4, 8],
+         [2, 4, 6]]
+
+  pos.size.times do |i|
+    val = pos[i].inject(0){|s, n| s += state_base_3[n]}
+    num = pos[i].inject(0){|s, n| s += 1 if state_base_3[n] == 0; s}
+
+    # リーチなら
+    if val == 4 && num == 1
+      reach = pos[i][state_base_3[pos[i]].to_a.index(0)]
+      break
+    end
+  end
+  reach
+end
+
+def action_train(policy, state_base_3)
   reward = 0.0
 
   # 学習プレイヤ
-  # 最初のステップでは1マス目を選択
-  a = 0
-  if not step == 0
-    while true
-      random = rand
+  a = nil
+  while true
+    random = rand
 
-      # 各マスの選択確率によって手を決める
-      cprob = 0.0
-      (0..8).each do |cell|
-        a = cell
-        cprob += policy[a]
-        if(random < cprob)
-          break
-        end
-      end
-
-      # 既にマスが埋まっていたら飛ばす
-      if state_base_3[a] == 0
+    # 各マスの選択確率によって手を決める
+    cprob = 0.0
+    (0..8).each do |cell|
+      a = cell
+      cprob += policy[a]
+      if(random < cprob)
         break
       end
+    end
+
+    # 既にマスが埋まっていたら飛ばす
+    if state_base_3[a] == 0
+      break
     end
   end
 

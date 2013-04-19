@@ -1,7 +1,5 @@
 # encoding: utf-8
-
 $:.unshift "./"
-require "encode"
 require "narrays"
 require "action"
 require "gnuplot"
@@ -58,9 +56,7 @@ def monte_carlo_iteration(iter_limit, episode, options)
         end
 
         # 行動して報酬を得る
-        action, reward, state_base_3, fin = action_train(policy, t, state_base_3)
-
-        # print sprintf("state:\t%5d\t\taction:\t%d\t\treward:\t%2d\t\tfin:\t%s\n", state, action, reward, fin)
+        action, reward, state_base_3, fin = action_train(policy, state_base_3)
 
         # 状態・行動・報酬・出現回数の更新
         states[e] << state
