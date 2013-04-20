@@ -3,11 +3,12 @@ TicTacToe
 checked environment: OSX(10.8.3), Ruby 1.9.3-p392
 
 ## Required gems
-- Ruby/SDL (with SGE)
+- Ruby/SDL
 - NArray
 
 ## Other requirements
-- rsdl(OSX)
+- SDL, SDL\_image, SDL\_ttf, SDL\_sound
+- SGE
 
 ## Preparation
 ### Install SDL & SGE
@@ -22,7 +23,9 @@ $ gem install rubysdl
 $ gem install rsdl
 $ gem install narray
 ```
-***NOTICE:*** rsdl gem cannot be installed on Ruby 2.0.0-p0
+***NOTICE:***
+- rubysdl have to be installed after the installation of SDL, SDL\_\*, and SGE
+- rsdl gem cannot be installed on Ruby 2.0.0-p0
 
 ## Usage
 ### Start 
